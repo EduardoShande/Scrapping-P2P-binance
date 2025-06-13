@@ -1,6 +1,6 @@
 # Ignoring folders
 USDT/
 USDC/
-
+.idea/
 # Ignoring files
 ANALISIS USDT BOLIVIA.pbix
