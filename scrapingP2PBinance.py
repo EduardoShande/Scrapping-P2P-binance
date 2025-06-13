@@ -93,23 +93,31 @@ def get_p2p_ads_correct(trade_type, asset, fiat, page=1):
         return []
 
 
-# Fetch binance p2p api to get 10 pages data
+# Use Binance P2P API to fetch the ads until the algorithm finds an empty list "[]", if so, it returns "[]"
 ads_list = []
-for number_of_pages in range(1, 21):
-    ads = get_p2p_ads_correct(trade_type="BUY", asset="USDT", fiat="BOB", page=number_of_pages)
-    ads_list += ads
-    time.sleep(3)
-    print(number_of_pages)
+number_of_pages = 1
+trade_type = str(input("Trade type (BUY/SELL): ")).upper().strip()
+asset = str(input("Asset (USDT/USDC): ")).upper().strip()
+if (trade_type == "BUY" or trade_type == "SELL") and (asset == "USDT" or asset == "USDC"):
+    while True:
+        ads = get_p2p_ads_correct(trade_type=trade_type, asset=asset, fiat="BOB", page=number_of_pages)
+        if ads == []:
+            print(ads)
+            number_of_pages -= 1
+            break
+        ads_list += ads
+        print(number_of_pages)
+        number_of_pages += 1
+        time.sleep(2)
 
+    # Save data into json files everyday
+    current_date = date.today()
+    month = current_date.month
+    day = current_date.day
+    year = current_date.year
 
-# Save data into json files everyday
-current_date = date.today()
-month = current_date.month
-day = current_date.day
-year = current_date.year
-
-with open(f"data/{month}-{day}-{year}-buy-20-test.json", "w") as file:
-    json.dump(ads_list, file)
+    with open(f"{asset}/{month}-{day}-{year}-{trade_type.lower()}-{number_of_pages}.json", "w") as file:
+        json.dump(ads_list, file)
 
 
 #print(ads_list)
