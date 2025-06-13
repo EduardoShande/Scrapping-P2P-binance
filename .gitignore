@@ -4,3 +4,4 @@ USDC/
 .idea/
 # Ignoring files
 ANALISIS USDT BOLIVIA.pbix
+tests.py
