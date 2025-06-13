@@ -61,7 +61,7 @@ def get_p2p_ads_correct(trade_type, asset, fiat, page=1):
         "Content-Type": "application/json",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         #"Referer": f"https://p2p.binance.com/es/trade/{trade_type}/all-payments/{asset}?fiat={fiat}",
-        "Referer": f"https://p2p.binance.com/en/trade/all-payments/USDT?fiat=BOB",
+        "Referer": f"https://p2p.binance.com/en/trade/all-payments/{asset}?fiat=BOB",
         "Origin": "https://p2p.binance.com",
     }
 
@@ -116,7 +116,7 @@ if (trade_type == "BUY" or trade_type == "SELL") and (asset == "USDT" or asset =
     day = current_date.day
     year = current_date.year
 
-    with open(f"{asset}/{month}-{day}-{year}-{trade_type.lower()}-{number_of_pages}.json", "w") as file:
+    with open(f"{asset}/{month}-{day}-{year}-{trade_type.lower()}-{number_of_pages}-test.json", "w") as file:
         json.dump(ads_list, file)
 
 
